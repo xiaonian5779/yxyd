@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>专业信息</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    margin: 0; /* 重置默认的页面边距 */
+  }
+  .navbar {
+      background-color: #333;
+      display: flex; /* 使用 Flexbox 布局 */
+      justify-content: space-around; /* 平均分配空间 */
+      align-items: center; /* 垂直居中 */
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 999; /* 保证在顶部 */
+  }
+  
+  .navbar a {
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+      font-size: 17px;
+  }
+  
+  .navbar a:hover {
+      background-color: #ddd;
+      color: black;
+  }
+  
+  /* 媒体查询，适应较小屏幕 */
+  @media only screen and (max-width: 600px) {
+      .navbar {
+          justify-content: space-between; /* 将链接放在两端 */
+      }
+  
+      .navbar a {
+          flex-grow: 1; /* 充满剩余空间 */
+      }
+  }
+  .container {
+    flex: 1;
+    display: flex;
+    overflow: hidden; /* 隐藏溢出部分 */
+  }
+
+  nav {
+    flex: 1;
+    background-color: #f0f0f0;
+    padding: 20px;
+    overflow-y: auto; /* 仅垂直方向滚动 */
+    height: 100vh; /* 填满可视区域的高度 */
+  }
+
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  nav ul li {
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+  }
+
+  .content {
+    flex: 3;
+    padding: 20px;
+    overflow-y: auto; /* 仅垂直方向滚动 */
+    height: 100vh; /* 填满可视区域的高度 */
+  }
+
+  .content h2 {
+    margin-top: 0;
+  }
+
+  .details {
+    margin-top: 20px;
+  }
+
+  .details p {
+    margin: 5px 0;
+  }
+
+  .details h3 {
+    margin-top: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="container"> <!-- 新增一个容器包裹左侧导航栏和右侧内容区域 -->
+  <nav>
+    <ul id="navList">
+    </ul>
+  </nav>
+
+  <div class="content" id="contentArea">
+    <h2>请选择一个专业查看详细信息</h2>
+  </div>
+</div>
+<footer class="navbar">
+    <a href="index.html">
+        <span>主页</span>
+    </a>
+    <a href="class.html">
+        <span>专业</span>
+    </a>
+    <a href="school.html">
+        <span>院校</span>
+    </a>
+    <a href="my.html">
+        <span>我的</span>
+    </a>
+</footer>
+<script>
+  var majors = [
+      {
+        name: "计算机科学",
+        subjects: ["数据结构", "算法", "编程语言"],
+        scores: [{year: 2023, score: 85}, {year: 2022, score: 82}, {year: 2021, score: 78}],
+        admissionRatio: [{year: 2023, ratio: 5.0}, {year: 2022, ratio: 5.3}, {year: 2021, ratio: 5.8}]
+      },
+      {
+        name: "人文学科",
+        subjects: ["历史", "文学", "哲学"],
+        scores: [{year: 2023, score: 78}, {year: 2022, score: 75}, {year: 2021, score: 72}],
+        admissionRatio: [{year: 2023, ratio: 6.5}, {year: 2022, ratio: 6.8}, {year: 2021, ratio: 7.0}]
+      },
+      {
+        name: "工程学",
+        subjects: ["机械工程", "电气工程", "土木工程"],
+        scores: [{year: 2023, score: 88}, {year: 2022, score: 85}, {year: 2021, score: 82}],
+        admissionRatio: [{year: 2023, ratio: 6.0}, {year: 2022, ratio: 6.2}, {year: 2021, ratio: 6.5}]
+      },
+      {
+        name: "生物科学",
+        subjects: ["生物化学", "生态学", "遗传学"],
+        scores: [{year: 2023, score: 84}, {year: 2022, score: 81}, {year: 2021, score: 79}],
+        admissionRatio: [{year: 2023, ratio: 5.8}, {year: 2022, ratio: 6.0}, {year: 2021, ratio: 6.3}]
+      },
+      {
+        name: "经济学",
+        subjects: ["微观经济学", "宏观经济学", "国际贸易"],
+        scores: [{year: 2023, score: 82}, {year: 2022, score: 79}, {year: 2021, score: 76}],
+        admissionRatio: [{year: 2023, ratio: 6.2}, {year: 2022, ratio: 6.5}, {year: 2021, ratio: 6.8}]
+      },
+      {
+        name: "化学",
+        subjects: ["有机化学", "无机化学", "物理化学"],
+        scores: [{year: 2023, score: 86}, {year: 2022, score: 83}, {year: 2021, score: 80}],
+        admissionRatio: [{year: 2023, ratio: 5.5}, {year: 2022, ratio: 5.7}, {year: 2021, ratio: 6.0}]
+      },
+      {
+        name: "艺术与设计",
+        subjects: ["绘画", "雕塑", "摄影"],
+        scores: [{year: 2023, score: 75}, {year: 2022, score: 72}, {year: 2021, score: 70}],
+        admissionRatio: [{year: 2023, ratio: 7.0}, {year: 2022, ratio: 7.3}, {year: 2021, ratio: 7.5}]
+      },
+      {
+        name: "医学",
+        subjects: ["内科学", "外科学", "儿科学"],
+        scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
+        admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
+      },
+	  {
+	          name: "计算机科学",
+	          subjects: ["数据结构", "算法", "编程语言"],
+	          scores: [{year: 2023, score: 85}, {year: 2022, score: 82}, {year: 2021, score: 78}],
+	          admissionRatio: [{year: 2023, ratio: 5.0}, {year: 2022, ratio: 5.3}, {year: 2021, ratio: 5.8}]
+	        },
+	        {
+	          name: "人文学科",
+	          subjects: ["历史", "文学", "哲学"],
+	          scores: [{year: 2023, score: 78}, {year: 2022, score: 75}, {year: 2021, score: 72}],
+	          admissionRatio: [{year: 2023, ratio: 6.5}, {year: 2022, ratio: 6.8}, {year: 2021, ratio: 7.0}]
+	        },
+	        {
+	          name: "工程学",
+	          subjects: ["机械工程", "电气工程", "土木工程"],
+	          scores: [{year: 2023, score: 88}, {year: 2022, score: 85}, {year: 2021, score: 82}],
+	          admissionRatio: [{year: 2023, ratio: 6.0}, {year: 2022, ratio: 6.2}, {year: 2021, ratio: 6.5}]
+	        },
+	        {
+	          name: "生物科学",
+	          subjects: ["生物化学", "生态学", "遗传学"],
+	          scores: [{year: 2023, score: 84}, {year: 2022, score: 81}, {year: 2021, score: 79}],
+	          admissionRatio: [{year: 2023, ratio: 5.8}, {year: 2022, ratio: 6.0}, {year: 2021, ratio: 6.3}]
+	        },
+	        {
+	          name: "经济学",
+	          subjects: ["微观经济学", "宏观经济学", "国际贸易"],
+	          scores: [{year: 2023, score: 82}, {year: 2022, score: 79}, {year: 2021, score: 76}],
+	          admissionRatio: [{year: 2023, ratio: 6.2}, {year: 2022, ratio: 6.5}, {year: 2021, ratio: 6.8}]
+	        },
+	        {
+	          name: "化学",
+	          subjects: ["有机化学", "无机化学", "物理化学"],
+	          scores: [{year: 2023, score: 86}, {year: 2022, score: 83}, {year: 2021, score: 80}],
+	          admissionRatio: [{year: 2023, ratio: 5.5}, {year: 2022, ratio: 5.7}, {year: 2021, ratio: 6.0}]
+	        },
+	        {
+	          name: "艺术与设计",
+	          subjects: ["绘画", "雕塑", "摄影"],
+	          scores: [{year: 2023, score: 75}, {year: 2022, score: 72}, {year: 2021, score: 70}],
+	          admissionRatio: [{year: 2023, ratio: 7.0}, {year: 2022, ratio: 7.3}, {year: 2021, ratio: 7.5}]
+	        },
+	        {
+	          name: "医学",
+	          subjects: ["内科学", "外科学", "儿科学"],
+	          scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
+	          admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
+	        },
+	  	  {
+	  	    name: "医学",
+	  	    subjects: ["内科学", "外科学", "儿科学"],
+	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
+	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
+	  	  },
+	  	  {
+	  	    name: "医学",
+	  	    subjects: ["内科学", "外科学", "儿科学"],
+	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
+	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
+	  	  },
+	  	  {
+	  	    name: "医学",
+	  	    subjects: ["内科学", "外科学", "儿科学"],
+	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
+	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
+	  	  },
+	  	  {
+	  	    name: "医学",
+	  	    subjects: ["内科学", "外科学", "儿科学"],
+	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
+	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
+	  	  },
+	  	  {
+	  	    name: "医学",
+	  	    subjects: ["内科学", "外科学", "儿科学"],
+	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
+	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
+	  	  },
+	  	  {
+	  	    name: "医学",
+	  	    subjects: ["内科学", "外科学", "儿科学"],
+	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
+	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
+	  	  },
+	  	  {
+	  	    name: "医学",
+	  	    subjects: ["内科学", "外科学", "儿科学"],
+	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
+	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
+	  	  },
+	  	  {
+	  	    name: "医学",
+	  	    subjects: ["内科学", "外科学", "儿科学"],
+	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
+	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
+	  	  },
+	  	  {
+	  	    name: "医学",
+	  	    subjects: ["内科学", "外科学", "儿科学"],
+	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
+	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
+	  	  }
+  ];
+
+
+  var navList = document.getElementById('navList');
+  var contentArea = document.getElementById('contentArea');
+
+  majors.forEach(function(major) {
+    var listItem = document.createElement('li');
+    listItem.textContent = major.name;
+    listItem.addEventListener('click', function() {
+      displayDetails(major);
+    });
+    navList.appendChild(listItem);
+  });
+
+  function displayDetails(major) {
+    contentArea.innerHTML = '';
+    var heading = document.createElement('h2');
+    heading.textContent = major.name;
+    contentArea.appendChild(heading);
+
+    var detailsDiv = document.createElement('div');
+    detailsDiv.classList.add('details');
+
+    var subjectsList = document.createElement('ul');
+    var scoresList = document.createElement('ul');
+    var admissionRatioList = document.createElement('ul');
+
+    var subjectsHeading = document.createElement('h3');
+    subjectsHeading.textContent = "科目";
+    subjectsList.appendChild(subjectsHeading);
+    var scoresHeading = document.createElement('h3');
+    scoresHeading.textContent = "历年国家线";
+    scoresList.appendChild(scoresHeading);
+    var admissionRatioHeading = document.createElement('h3');
+    admissionRatioHeading.textContent = "历年报录录比";
+    admissionRatioList.appendChild(admissionRatioHeading);
+
+    major.subjects.forEach(function(subject) {
+      var subjectItem = document.createElement('li');
+      subjectItem.textContent = subject;
+      subjectItem.addEventListener('click', function() {
+        navigateToSubjectPage(major.name, subject);
+      });
+      subjectsList.appendChild(subjectItem);
+    });
+    
+    function navigateToSubjectPage(majorName, subject) {
+      var url = 'subject-details.html?major=' + encodeURIComponent(majorName) + '&subject=' + encodeURIComponent(subject);
+      window.location.href = url;
+    }
+
+
+    major.scores.forEach(function(scoreObj) {
+      var scoreItem = document.createElement('li');
+      scoreItem.textContent = ` ${scoreObj.year}年: ${scoreObj.score}`;
+      scoresList.appendChild(scoreItem);
+    });
+
+    major.admissionRatio.forEach(function(ratioObj) {
+      var ratioItem = document.createElement('li');
+      ratioItem.textContent = ` ${ratioObj.year}年: ${ratioObj.ratio}`;
+      admissionRatioList.appendChild(ratioItem);
+    });
+
+    detailsDiv.appendChild(subjectsList);
+    detailsDiv.appendChild(scoresList);
+    detailsDiv.appendChild(admissionRatioList);
+    contentArea.appendChild(detailsDiv);
+  }
+</script>
+
+</body>
+</html>
