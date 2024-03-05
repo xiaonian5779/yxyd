@@ -210,77 +210,79 @@
 		</a>
 	</footer>
 	<script>
-		// 获取筛选条件的选择框
-		const locationSelect = document.getElementById('location');
-		const characterSelect = document.getElementById('character');
-		const typeSelect = document.getElementById('type');
-		const affiliationSelect = document.getElementById('affiliation');
-		const resultsDiv = document.getElementById('results');
+		document.addEventListener("DOMContentLoaded", function() {
+			// 获取筛选条件的选择框
+			const locationSelect = document.getElementById('location');
+			const characterSelect = document.getElementById('character');
+			const typeSelect = document.getElementById('type');
+			const affiliationSelect = document.getElementById('affiliation');
+			const resultsDiv = document.getElementById('results');
 
-		// 初始加载所有高校信息
-		loadUniversities();
+			// 初始加载所有高校信息
+			loadUniversities();
 
-		// 监听选择框变化事件，进行筛选
-		[locationSelect, characterSelect, typeSelect, affiliationSelect].forEach(select => {
-			select.addEventListener('change', filterUniversities);
-		});
+			// 监听选择框变化事件，进行筛选
+			[locationSelect, characterSelect, typeSelect, affiliationSelect].forEach(select => {
+				select.addEventListener('change', filterUniversities);
+			});
 
-		// 加载高校信息
-		function loadUniversities() {
-			fetch('school.json') // 替换为你的 JSON 文件路径
-				.then(response => response.json())
-				.then(data => {
-					filterUniversities(); // 加载成功后进行筛选
-				})
-				.catch(error => {
-					console.error('Error loading universities:', error);
-				});
-		}
-
-		// 筛选高校信息
-		function filterUniversities() {
-			fetch('school.json') // 替换为你的 JSON 文件路径
-				.then(response => response.json())
-				.then(data => {
-					const locationValue = locationSelect.value;
-					const characterValue = characterSelect.value;
-					const typeValue = typeSelect.value;
-					const affiliationValue = affiliationSelect.value;
-
-					const filteredUniversities = data.filter(university => {
-						return (locationValue === 'all' || university.location === locationValue) &&
-							(characterValue === 'all' || university.character === characterValue) &&
-							(typeValue === 'all' || university.type === typeValue) &&
-							(affiliationValue === 'all' || university.affiliation === affiliationValue);
+			// 加载高校信息
+			function loadUniversities() {
+				fetch('school.json') // 替换为你的 JSON 文件路径
+					.then(response => response.json())
+					.then(data => {
+						filterUniversities(); // 加载成功后进行筛选
+					})
+					.catch(error => {
+						console.error('Error loading universities:', error);
 					});
-
-					displayResults(filteredUniversities);
-				})
-				.catch(error => {
-					console.error('Error filtering universities:', error);
-				});
-		}
-
-		// 显示筛选结果
-		function displayResults(universities) {
-			resultsDiv.innerHTML = '';
-			if (universities.length === 0) {
-				resultsDiv.innerHTML = '<p>未找到符合条件的高校。</p>';
-			} else {
-				universities.forEach(university => {
-					const universityInfo = document.createElement('div');
-					universityInfo.classList.add('university-info');
-					universityInfo.innerHTML = `
-						<h3>${university.name}</h3>
-						<p><strong>所在地：</strong>${university.location}</p>
-						<p><strong>院校特性：</strong>${university.character}</p>
-						<p><strong>院校属性：</strong>${university.type}</p>
-						<p><strong>院校隶属：</strong>${university.affiliation}</p>
-					`;
-					resultsDiv.appendChild(universityInfo);
-				});
 			}
-		}
+
+			// 筛选高校信息
+			function filterUniversities() {
+				fetch('school.json') // 替换为你的 JSON 文件路径
+					.then(response => response.json())
+					.then(data => {
+						const locationValue = locationSelect.value;
+						const characterValue = characterSelect.value;
+						const typeValue = typeSelect.value;
+						const affiliationValue = affiliationSelect.value;
+
+						const filteredUniversities = data.filter(university => {
+							return (locationValue === 'all' || university.location === locationValue) &&
+								(characterValue === 'all' || university.character === characterValue) &&
+								(typeValue === 'all' || university.type === typeValue) &&
+								(affiliationValue === 'all' || university.affiliation === affiliationValue);
+						});
+
+						displayResults(filteredUniversities);
+					})
+					.catch(error => {
+						console.error('Error filtering universities:', error);
+					});
+			}
+
+			// 显示筛选结果
+			function displayResults(universities) {
+				resultsDiv.innerHTML = '';
+				if (universities.length === 0) {
+					resultsDiv.innerHTML = '<p>未找到符合条件的高校。</p>';
+				} else {
+					universities.forEach(university => {
+						const universityInfo = document.createElement('div');
+						universityInfo.classList.add('university-info');
+						universityInfo.innerHTML = `
+							<h3>${university.name}</h3>
+							<p><strong>所在地：</strong>${university.location}</p>
+							<p><strong>院校特性：</strong>${university.character}</p>
+							<p><strong>院校属性：</strong>${university.type}</p>
+							<p><strong>院校隶属：</strong>${university.affiliation}</p>
+						`;
+						resultsDiv.appendChild(universityInfo);
+					});
+				}
+			}
+		});
 	</script>
 </body>
 

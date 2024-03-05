@@ -111,49 +111,51 @@
 	</footer>
 
 	<script>
-        // Fetch user data from JSON file
-        fetch('users.json')
-            .then(response => response.json())
-            .then(users => {
-                // 获取浏览器本地存储的用户名
-                var username = localStorage.getItem("username");
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fetch user data from JSON file
+            fetch('users.json')
+                .then(response => response.json())
+                .then(users => {
+                    // 获取浏览器本地存储的用户名
+                    var username = localStorage.getItem("username");
 
-                // 查找匹配的用户数据
-                var userDetails = users.find(function(user) {
-                    return user.username === username;
-                });
+                    // 查找匹配的用户数据
+                    var userDetails = users.find(function(user) {
+                        return user.username === username;
+                    });
 
-                // If userDetails found, display details
-                if (userDetails) {
-                    document.getElementById("username").textContent = userDetails.fullName;
+                    // If userDetails found, display details
+                    if (userDetails) {
+                        document.getElementById("username").textContent = userDetails.fullName;
 
-                    var userDetailsHTML = "<p>邮箱: " + userDetails.email + "</p>";
-                    userDetailsHTML += "<p>签名: " + userDetails.bio + "</p>";
+                        var userDetailsHTML = "<p>邮箱: " + userDetails.email + "</p>";
+                        userDetailsHTML += "<p>签名: " + userDetails.bio + "</p>";
 
-                    document.getElementById("userDetails").innerHTML = userDetailsHTML;
+                        document.getElementById("userDetails").innerHTML = userDetailsHTML;
 
-                    // 显示退出按钮
-                    var logoutButton = document.createElement("button");
-                    logoutButton.textContent = "退出登录";
-                    logoutButton.onclick = logout;
-                    document.getElementById("loginLogoutButtons").appendChild(logoutButton);
-                } else {
-                    document.getElementById("username").textContent = "游客";
+                        // 显示退出按钮
+                        var logoutButton = document.createElement("button");
+                        logoutButton.textContent = "退出登录";
+                        logoutButton.onclick = logout;
+                        document.getElementById("loginLogoutButtons").appendChild(logoutButton);
+                    } else {
+                        document.getElementById("username").textContent = "游客";
 
-                    // 显示暂无信息
-                    var noInfoMessage = "<p>暂无信息，请登录</p>";
-                    document.getElementById("userDetails").innerHTML = noInfoMessage;
+                        // 显示暂无信息
+                        var noInfoMessage = "<p>暂无信息，请登录</p>";
+                        document.getElementById("userDetails").innerHTML = noInfoMessage;
 
-                    // 显示登录按钮
-                    var loginButton = document.createElement("button");
-                    loginButton.textContent = "登录";
-                    loginButton.onclick = function() {
-                        window.location.href = "sign.html"; // 这里需要重定向到登录页面的路径
-                    };
-                    document.getElementById("loginLogoutButtons").appendChild(loginButton);
-                }
-            })
-            .catch(error => console.error('Error fetching user data:', error));
+                        // 显示登录按钮
+                        var loginButton = document.createElement("button");
+                        loginButton.textContent = "登录";
+                        loginButton.onclick = function() {
+                            window.location.href = "sign.html"; // 这里需要重定向到登录页面的路径
+                        };
+                        document.getElementById("loginLogoutButtons").appendChild(loginButton);
+                    }
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        });
 
         // 退出登录函数
         function logout() {
