@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="./style.css">
+		<title>研学有道</title>
+		<style>
+			/* 以下是顶部搜索栏设置 */
+			header {
+				background: url("img/background1.jpg") no-repeat;
+				padding: 10px;
+				text-align: center;
+				position: fixed;
+				width: 100%;
+				top: 0;
+				z-index: 1000;
+			}
+
+			header input[type="text"] {
+				padding: 3px;
+				width: 200px;
+				border: none;
+				border-radius: 20px;
+				outline: none;
+				font-size: 13px;
+				background: url("img/background1.jpg");
+				background-size: cover;
+				position: relative;
+			}
+
+			/* 以下是顶部倒计时设置 */
+			.countdown-container {
+				font-family: "Times New Roman", Arial, "STKaiti", sans-serif;
+				background-image: url(img/background2.jpg);
+				background-size: cover;
+				padding: 20px;
+				margin-top: 38px;
+				position: fixed;
+				top: 0;
+				width: 100%;
+				z-index: 1;
+			}
+
+			h2 {
+				font-size: 18px;
+				text-align: left;
+				font-weight: bold;
+			}
+
+			#countdown {
+				text-align: center;
+				font-size: 25px;
+				font-weight: bold;
+				padding: 12px
+			}
+
+			.navbar #home-icon::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 25%;
+				height: 100%;
+				background-color: #6bc3f3;
+				opacity: 0.5;
+				z-index: -1;border-radius: 10px; /* 添加圆角 */
+				box-shadow: inset 0 0 10px rgba(0,0,0,0.5); /* 内阴影，模拟立体效果 */
+			}
+
+			#posts {
+				background: #ffffff;
+				padding: 20px;
+				position: relative;
+				margin-top: 150px;
+				z-index: 2;
+				border-top-left-radius: 10px;
+				/* 左上角圆角半径为10px */
+				border-top-right-radius: 10px;
+				/* 右上角圆角半径为10px */
+			}
+
+
+			.post {
+				border-bottom: 1px solid #ddd;
+				padding: 10px;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.post:last-child {
+				border-bottom: none;
+			}
+
+			.post-header {
+				display: flex;
+				align-items: center;
+				margin-bottom: 10px;
+			}
+
+			.post-content img {
+				max-width: 100%;
+				height: auto;
+				margin-top: 10px;
+				/* 图片与下方内容的间距为10像素 */
+				margin-bottom: 10px;
+			}
+
+			.post-interaction {
+				display: flex;
+				align-items: center;
+				margin-top: 10px;
+			}
+
+			.interaction-item {
+				display: flex;
+				align-items: center;
+				margin-right: 20px;
+			}
+
+			.interaction-item img {
+				width: 20px;
+				height: 20px;
+				margin-right: 5px;
+			}
+
+			.forum-divider {
+				border-top: 2px solid #333;
+				margin: 20px 0;
+			}
+		</style>
+	</head>
+	<body>
+
+		<header>
+			<input type="text" placeholder="查找...">
+		</header>
+
+		<div class="countdown-container">
+			<h2>2024考研倒计时：</h2>
+			<div id="countdown"></div>
+		</div>
+
+
+		<div id="posts">
+			<!-- 帖子将通过JavaScript动态添加 -->
+		</div>
+
+
+		<footer class="navbar">
+			<a href="index.html">
+				<span class="navbar-icon" id="home-icon"></span>
+				<span>主 页</span>
+			</a>
+			<a href="class.html">
+				<span class="navbar-icon" id="subject-icon"></span>
+				<span>专 业</span>
+			</a>
+			<a href="school.html">
+				<span class="navbar-icon" id="school-icon"></span>
+				<span>院 校</span>
+			</a>
+			<a href="my.html">
+				<span class="navbar-icon" id="mine-icon"></span>
+				<span>我 的</span>
+			</a>
+		</footer>
+
+
+		<script>
+			function countdown() {
+				var targetDate = new Date("2024-12-23");
+				var currentDate = new Date();
+
+				var timeDifference = targetDate.getTime() - currentDate.getTime();
+
+				var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+				var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+				/*
+        var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+		*/
+
+				document.getElementById("countdown").innerHTML = days + " 天 " + hours + " 小时 " + minutes +
+					" 分钟 " /*+ seconds + " 秒 "*/ ;
+			}
+
+			// 每秒更新一次倒计时
+			setInterval(countdown, 1000);
+
+			var postsContainer = document.getElementById("posts");
+
+			// 模拟帖子数据，包括点赞、评论和转发数量
+			var morePosts = [{
+					username: "温桑",
+					content: "拼搏三百天，我要上民专。",
+					userphotoURL: "img/img1.jpg",
+					postImageURL: "img/user1/img1.jpg",
+					likes: 20,
+					comments: 5,
+					shares: 10
+				},
+				{
+					username: "闪韵",
+					content: "从零开始设计网页——figma基础教程",
+					userphotoURL: "img/img2.jpg",
+					postImageURL: "img/user2/img1.jpg",
+					likes: 1536,
+					comments: 88,
+					shares: 764
+				},
+				{
+					username: "无边",
+					content: "操作系统：进程调度方法详解",
+					userphotoURL: "img/img3.jpg",
+					postImageURL: "img/user3/img1.png",
+					likes: 3098,
+					comments: 124,
+					shares: 206
+				}
+			];
+
+			morePosts.forEach(function(post) {
+				var postDiv = document.createElement("div");
+				postDiv.classList.add("post");
+
+				var postHeaderDiv = document.createElement("div");
+				postHeaderDiv.classList.add("post-header");
+
+				var img = document.createElement("img");
+				img.src = post.userphotoURL;
+				img.width = 40;
+				img.height = 40;
+				img.style.marginRight = "10px";
+
+				var usernameHeader = document.createElement("h3");
+				usernameHeader.textContent = post.username;
+
+				postHeaderDiv.appendChild(img);
+				postHeaderDiv.appendChild(usernameHeader);
+
+				var contentDiv = document.createElement("div");
+				contentDiv.classList.add("post-content");
+
+				var contentParagraph = document.createElement("p");
+				contentParagraph.textContent = post.content;
+
+				contentDiv.appendChild(contentParagraph);
+
+				// 添加帖子图片内容
+				if (post.postImageURL) {
+					var postImage = document.createElement("img");
+					postImage.src = post.postImageURL;
+					postImage.classList.add("post-image");
+					contentDiv.appendChild(postImage);
+				}
+
+				// 添加点赞、评论和转发数量
+				var interactionDiv = document.createElement("div");
+				interactionDiv.classList.add("post-interaction");
+
+				var likeIcon = document.createElement("div");
+				likeIcon.classList.add("interaction-item");
+				likeIcon.innerHTML = '<img src="img/like_icon.png">' + post.likes;
+
+				var commentIcon = document.createElement("div");
+				commentIcon.classList.add("interaction-item");
+				commentIcon.innerHTML = '<img src="img/comment_icon.png">' + post.comments;
+
+				var shareIcon = document.createElement("div");
+				shareIcon.classList.add("interaction-item");
+				shareIcon.innerHTML = '<img src="img/share_icon.png">' + post.shares;
+
+				interactionDiv.appendChild(likeIcon);
+				interactionDiv.appendChild(commentIcon);
+				interactionDiv.appendChild(shareIcon);
+
+				postDiv.appendChild(postHeaderDiv);
+				postDiv.appendChild(contentDiv);
+				postDiv.appendChild(interactionDiv);
+
+				postsContainer.appendChild(postDiv);
+			});
+		</script>
+
+	</body>
+</html>

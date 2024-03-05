@@ -1,0 +1,26 @@
+[
+    {
+        "username": "wendusu",
+        "fullName": "温桑",
+        "email": "user1@example.com",
+        "bio": "I am user one."
+    },
+    {
+        "username": "sujiale",
+        "fullName": "咲念",
+        "email": "user2@example.com",
+        "bio": "I am user two."
+    },
+    {
+        "username": "lishuai",
+        "fullName": "无边",
+        "email": "user3@example.com",
+        "bio": "I am user three."
+    },
+    {
+        "username": "wangbingxin",
+        "fullName": "闪韵",
+        "email": "user3@example.com",
+        "bio": "I am user three."
+    }
+]

@@ -1,152 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>User Profile Page</title>
-<style>
-   body {
-       font-family: Arial, sans-serif;
-       margin: 0;
-       padding-bottom: 60px; /* Ensure content doesn't get hidden under the footer */
-   }
-   
-   .container {
-       max-width: 800px;
-       margin: 0 auto;
-       padding: 20px;
-   }
-   
-   #userDetails {
-       background-color: #fff;
-       padding: 20px;
-       border-radius: 10px;
-       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-       margin-bottom: 20px;
-   }
-   
-   #userDetails p {
-       margin: 10px 0;
-   }
-   
-   button {
-       display: block;
-       margin: 20px auto;
-       padding: 12px 24px;
-       background-color: #333;
-       color: #fff;
-       border: none;
-       border-radius: 5px;
-       cursor: pointer;
-       font-size: 16px;
-       transition: background-color 0.3s ease;
-   }
-   
-   button:hover {
-       background-color: #555;
-   }
-   
-   .navbar {
-       background-color: #333;
-       display: flex;
-       justify-content: space-around;
-       align-items: center;
-       position: fixed;
-       bottom: 0;
-       width: 100%;
-       z-index: 999;
-   }
-   
-   .navbar a {
-       color: #f2f2f2;
-       text-align: center;
-       padding: 14px 20px;
-       text-decoration: none;
-       font-size: 16px;
-   }
-   
-   .navbar a:hover {
-       background-color: #555;
-       color: #fff;
-   }
-   
-   @media only screen and (max-width: 600px) {
-       .navbar {
-           justify-content: space-between;
-       }
-   
-       .navbar a {
-           flex-grow: 1;
-       }
-   }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./style.css">
 
-</style>
+	<title>User Profile Page</title>
+
+	<style>
+		/* 以下是底部导航栏设置 */
+		.navbar #mine-icon::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 75%;
+			width: 25%;
+			height: 100%;
+			background-color: #27a4f1;
+			opacity: 0.5;
+			z-index: -1;
+			border-radius: 10px;
+			/* 添加圆角 */
+			box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+			/* 内阴影，模拟立体效果 */
+		}
+
+		.container {
+			margin: 50px auto;
+			padding: 20px;
+			max-width: 600px;
+			background-color: #fff;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			border-radius: 10px;
+			display: flex;
+			flex-direction: column;
+			/* 将容器设置为列布局 */
+		}
+
+		.container p {
+			margin: 10px 0;
+		}
+
+		#userDetails {
+			margin-top: 20px;
+			padding: 20px;
+			background-color: #f9f9f9;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		#userDetails:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+		}
+
+
+		button {
+			width: auto;
+			/* 移除固定宽度 */
+			padding: 10px;
+			margin-top: 20px;
+			border: none;
+			border-radius: 5px;
+			background-color: #27a4f1;
+			color: #fff;
+			opacity: 0.9;
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		button:hover {
+			background-color: #1e90ff;
+		}
+	</style>
 </head>
+
 <body>
-    
-    <div class="container">
-        <p>欢迎来到个人主页, <span id="username"></span>!</p>
-        <div id="userDetails">
-            <!-- 用户详细信息将在这里动态显示 -->
-        </div>
 
-        <button onclick="logout()">退出登录</button>
-    </div>
-    
-<footer class="navbar">
-    <a href="index.html">
-        <span>主页</span>
-    </a>
-    <a href="class.html">
-        <span>专业</span>
-    </a>
-    <a href="school.html">
-        <span>院校</span>
-    </a>
-    <a href="my.html">
-        <span>我的</span>
-    </a>
-</footer>
+	<div class="container">
+		<p>欢迎来到个人主页, <span id="username"></span>!</p>
+		<div id="userDetails">
+			<!-- 用户详细信息将在这里动态显示 -->
+		</div>
 
-<script>
-    // 预设用户数据
-    var users = [
-        { username: "wendusu", fullName: "温桑", email: "user1@example.com", bio: "I am user one." },
-        { username: "sujiale", fullName: "咲念", email: "user2@example.com", bio: "I am user two." },
-        { username: "lishuai", fullName: "无边", email: "user3@example.com", bio: "I am user three." },
-        { username: "wangbingxin", fullName: "闪韵", email: "user3@example.com", bio: "I am user three." }
-    ];
+		<div id="loginLogoutButtons">
+			<!-- 登录/退出按钮将在这里显示 -->
+		</div>
+	</div>
 
-    // 获取浏览器本地存储的用户名
-    var username = localStorage.getItem("username");
+	<footer class="navbar">
+		<a href="index.html">
+			<span class="navbar-icon" id="home-icon"></span>
+			<span>主 页</span>
+		</a>
+		<a href="class.html">
+			<span class="navbar-icon" id="subject-icon"></span>
+			<span>专 业</span>
+		</a>
+		<a href="school.html">
+			<span class="navbar-icon" id="school-icon"></span>
+			<span>院 校</span>
+		</a>
+		<a href="my.html">
+			<span class="navbar-icon" id="mine-icon"></span>
+			<span>我 的</span>
+		</a>
+	</footer>
 
-    // 查找匹配的用户数据
-    var userDetails = users.find(function(user) {
-        return user.username === username;
-    });
+	<script>
+        // Fetch user data from JSON file
+        fetch('users.json')
+            .then(response => response.json())
+            .then(users => {
+                // 获取浏览器本地存储的用户名
+                var username = localStorage.getItem("username");
 
-    // 如果找到匹配的用户数据，则显示详细信息
-    if (userDetails) {
-        document.getElementById("username").textContent = userDetails.fullName;
+                // 查找匹配的用户数据
+                var userDetails = users.find(function(user) {
+                    return user.username === username;
+                });
 
-        var userDetailsHTML = "<p>邮箱: " + userDetails.email + "</p>";
-        userDetailsHTML += "<p>签名: " + userDetails.bio + "</p>";
+                // If userDetails found, display details
+                if (userDetails) {
+                    document.getElementById("username").textContent = userDetails.fullName;
 
-        document.getElementById("userDetails").innerHTML = userDetailsHTML;
-    } else {
-        document.getElementById("username").textContent = "游客";
-        document.getElementById("userDetails").innerHTML = "<p><a href='sign.html'>点击此处登录</a></p>";
+                    var userDetailsHTML = "<p>邮箱: " + userDetails.email + "</p>";
+                    userDetailsHTML += "<p>签名: " + userDetails.bio + "</p>";
 
-    }
+                    document.getElementById("userDetails").innerHTML = userDetailsHTML;
 
-    // 退出登录函数
-    function logout() {
-        // 清除浏览器本地存储的用户名
-        localStorage.removeItem("username");
-        // 重定向到本地的index.html页面
-        window.location.href = "index.html";
-    }
-</script>
+                    // 显示退出按钮
+                    var logoutButton = document.createElement("button");
+                    logoutButton.textContent = "退出登录";
+                    logoutButton.onclick = logout;
+                    document.getElementById("loginLogoutButtons").appendChild(logoutButton);
+                } else {
+                    document.getElementById("username").textContent = "游客";
+
+                    // 显示暂无信息
+                    var noInfoMessage = "<p>暂无信息，请登录</p>";
+                    document.getElementById("userDetails").innerHTML = noInfoMessage;
+
+                    // 显示登录按钮
+                    var loginButton = document.createElement("button");
+                    loginButton.textContent = "登录";
+                    loginButton.onclick = function() {
+                        window.location.href = "sign.html"; // 这里需要重定向到登录页面的路径
+                    };
+                    document.getElementById("loginLogoutButtons").appendChild(loginButton);
+                }
+            })
+            .catch(error => console.error('Error fetching user data:', error));
+
+        // 退出登录函数
+        function logout() {
+            // 清除浏览器本地存储的用户名
+            localStorage.removeItem("username");
+            // 重定向到本地的 index.html 页面
+            window.location.href = "index.html";
+        }
+    </script>
 </body>
 
 </html>

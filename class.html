@@ -1,349 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>专业信息</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    margin: 0; /* 重置默认的页面边距 */
-  }
-  .navbar {
-      background-color: #333;
-      display: flex; /* 使用 Flexbox 布局 */
-      justify-content: space-around; /* 平均分配空间 */
-      align-items: center; /* 垂直居中 */
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      z-index: 999; /* 保证在顶部 */
-  }
-  
-  .navbar a {
-      color: #f2f2f2;
-      text-align: center;
-      padding: 14px 20px;
-      text-decoration: none;
-      font-size: 17px;
-  }
-  
-  .navbar a:hover {
-      background-color: #ddd;
-      color: black;
-  }
-  
-  /* 媒体查询，适应较小屏幕 */
-  @media only screen and (max-width: 600px) {
-      .navbar {
-          justify-content: space-between; /* 将链接放在两端 */
-      }
-  
-      .navbar a {
-          flex-grow: 1; /* 充满剩余空间 */
-      }
-  }
-  .container {
-    flex: 1;
-    display: flex;
-    overflow: hidden; /* 隐藏溢出部分 */
-  }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./style.css">
 
-  nav {
-    flex: 1;
-    background-color: #f0f0f0;
-    padding: 20px;
-    overflow-y: auto; /* 仅垂直方向滚动 */
-    height: 100vh; /* 填满可视区域的高度 */
-  }
+	<title>专业信息</title>
+	<style>
+		.navbar #subject-icon::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 25%;
+			width: 25%;
+			height: 100%;
+			background-color: #6bc3f3;
+			opacity: 0.5;
+			z-index: -1;
+			border-radius: 10px;
+			/* 添加圆角 */
+			box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+			/* 内阴影，模拟立体效果 */
+		}
 
-  nav ul {
-    list-style-type: none;
-    padding: 0;
-  }
+		.initial-hint {
+			text-align: center;
+			font-size: 1.2em;
+			color: #888;
+			margin-top: 50px;
+		}
 
-  nav ul li {
-    cursor: pointer;
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #ddd;
-    border-radius: 5px;
-  }
+		.container {
+			flex: 1;
+			display: flex;
+			overflow: hidden;
+			/* 隐藏溢出部分 */
+		}
 
-  .content {
+		nav {
+			flex: 1;
+			background-color: #f0f0f0;
+			padding: 20px;
+			overflow-y: auto;
+			/* 仅垂直方向滚动 */
+			height: 100vh;
+			/* 填满可视区域的高度 */
+		}
+
+		nav ul {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		nav ul li {
+			cursor: pointer;
+			margin-bottom: 8px;
+			padding: 12px;
+			background-color: #f8f8f8;
+			border-radius: 8px;
+			transition: background-color 0.3s ease, transform 0.2s ease;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			/* 添加阴影效果 */
+		}
+
+		nav ul li:hover {
+			background-color: #e0e0e0;
+			transform: translateY(-2px);
+			/* 提升按钮略微 */
+		}
+
+		/* 去除每行前面的点 */
+		ul {
+			list-style-type: none;
+			padding-left: 0;
+		}
+
+		.content {
     flex: 3;
     padding: 20px;
-    overflow-y: auto; /* 仅垂直方向滚动 */
-    height: 100vh; /* 填满可视区域的高度 */
-  }
+    overflow-y: auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
 
-  .content h2 {
+.module {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+}
+
+.module:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.module-title {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.module h3 {
     margin-top: 0;
-  }
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1.2em;
+}
 
-  .details {
-    margin-top: 20px;
-  }
+.module ul {
+    list-style-type: none;
+    padding: 0;
+}
 
-  .details p {
-    margin: 5px 0;
-  }
+.module ul li {
+    margin-bottom: 8px;
+    color: #555;
+}
 
-  .details h3 {
-    margin-top: 0;
-  }
-</style>
+	</style>
 </head>
+
 <body>
 
-<div class="container"> <!-- 新增一个容器包裹左侧导航栏和右侧内容区域 -->
-  <nav>
-    <ul id="navList">
-    </ul>
-  </nav>
+	<div class="container"> <!-- 新增一个容器包裹左侧导航栏和右侧内容区域 -->
+		<nav>
+			<ul id="navList">
+			</ul>
+		</nav>
 
-  <div class="content" id="contentArea">
-    <h2>请选择一个专业查看详细信息</h2>
-  </div>
-</div>
-<footer class="navbar">
-    <a href="index.html">
-        <span>主页</span>
-    </a>
-    <a href="class.html">
-        <span>专业</span>
-    </a>
-    <a href="school.html">
-        <span>院校</span>
-    </a>
-    <a href="my.html">
-        <span>我的</span>
-    </a>
-</footer>
-<script>
-  var majors = [
-      {
-        name: "计算机科学",
-        subjects: ["数据结构", "算法", "编程语言"],
-        scores: [{year: 2023, score: 85}, {year: 2022, score: 82}, {year: 2021, score: 78}],
-        admissionRatio: [{year: 2023, ratio: 5.0}, {year: 2022, ratio: 5.3}, {year: 2021, ratio: 5.8}]
-      },
-      {
-        name: "人文学科",
-        subjects: ["历史", "文学", "哲学"],
-        scores: [{year: 2023, score: 78}, {year: 2022, score: 75}, {year: 2021, score: 72}],
-        admissionRatio: [{year: 2023, ratio: 6.5}, {year: 2022, ratio: 6.8}, {year: 2021, ratio: 7.0}]
-      },
-      {
-        name: "工程学",
-        subjects: ["机械工程", "电气工程", "土木工程"],
-        scores: [{year: 2023, score: 88}, {year: 2022, score: 85}, {year: 2021, score: 82}],
-        admissionRatio: [{year: 2023, ratio: 6.0}, {year: 2022, ratio: 6.2}, {year: 2021, ratio: 6.5}]
-      },
-      {
-        name: "生物科学",
-        subjects: ["生物化学", "生态学", "遗传学"],
-        scores: [{year: 2023, score: 84}, {year: 2022, score: 81}, {year: 2021, score: 79}],
-        admissionRatio: [{year: 2023, ratio: 5.8}, {year: 2022, ratio: 6.0}, {year: 2021, ratio: 6.3}]
-      },
-      {
-        name: "经济学",
-        subjects: ["微观经济学", "宏观经济学", "国际贸易"],
-        scores: [{year: 2023, score: 82}, {year: 2022, score: 79}, {year: 2021, score: 76}],
-        admissionRatio: [{year: 2023, ratio: 6.2}, {year: 2022, ratio: 6.5}, {year: 2021, ratio: 6.8}]
-      },
-      {
-        name: "化学",
-        subjects: ["有机化学", "无机化学", "物理化学"],
-        scores: [{year: 2023, score: 86}, {year: 2022, score: 83}, {year: 2021, score: 80}],
-        admissionRatio: [{year: 2023, ratio: 5.5}, {year: 2022, ratio: 5.7}, {year: 2021, ratio: 6.0}]
-      },
-      {
-        name: "艺术与设计",
-        subjects: ["绘画", "雕塑", "摄影"],
-        scores: [{year: 2023, score: 75}, {year: 2022, score: 72}, {year: 2021, score: 70}],
-        admissionRatio: [{year: 2023, ratio: 7.0}, {year: 2022, ratio: 7.3}, {year: 2021, ratio: 7.5}]
-      },
-      {
-        name: "医学",
-        subjects: ["内科学", "外科学", "儿科学"],
-        scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
-        admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
-      },
-	  {
-	          name: "计算机科学",
-	          subjects: ["数据结构", "算法", "编程语言"],
-	          scores: [{year: 2023, score: 85}, {year: 2022, score: 82}, {year: 2021, score: 78}],
-	          admissionRatio: [{year: 2023, ratio: 5.0}, {year: 2022, ratio: 5.3}, {year: 2021, ratio: 5.8}]
-	        },
-	        {
-	          name: "人文学科",
-	          subjects: ["历史", "文学", "哲学"],
-	          scores: [{year: 2023, score: 78}, {year: 2022, score: 75}, {year: 2021, score: 72}],
-	          admissionRatio: [{year: 2023, ratio: 6.5}, {year: 2022, ratio: 6.8}, {year: 2021, ratio: 7.0}]
-	        },
-	        {
-	          name: "工程学",
-	          subjects: ["机械工程", "电气工程", "土木工程"],
-	          scores: [{year: 2023, score: 88}, {year: 2022, score: 85}, {year: 2021, score: 82}],
-	          admissionRatio: [{year: 2023, ratio: 6.0}, {year: 2022, ratio: 6.2}, {year: 2021, ratio: 6.5}]
-	        },
-	        {
-	          name: "生物科学",
-	          subjects: ["生物化学", "生态学", "遗传学"],
-	          scores: [{year: 2023, score: 84}, {year: 2022, score: 81}, {year: 2021, score: 79}],
-	          admissionRatio: [{year: 2023, ratio: 5.8}, {year: 2022, ratio: 6.0}, {year: 2021, ratio: 6.3}]
-	        },
-	        {
-	          name: "经济学",
-	          subjects: ["微观经济学", "宏观经济学", "国际贸易"],
-	          scores: [{year: 2023, score: 82}, {year: 2022, score: 79}, {year: 2021, score: 76}],
-	          admissionRatio: [{year: 2023, ratio: 6.2}, {year: 2022, ratio: 6.5}, {year: 2021, ratio: 6.8}]
-	        },
-	        {
-	          name: "化学",
-	          subjects: ["有机化学", "无机化学", "物理化学"],
-	          scores: [{year: 2023, score: 86}, {year: 2022, score: 83}, {year: 2021, score: 80}],
-	          admissionRatio: [{year: 2023, ratio: 5.5}, {year: 2022, ratio: 5.7}, {year: 2021, ratio: 6.0}]
-	        },
-	        {
-	          name: "艺术与设计",
-	          subjects: ["绘画", "雕塑", "摄影"],
-	          scores: [{year: 2023, score: 75}, {year: 2022, score: 72}, {year: 2021, score: 70}],
-	          admissionRatio: [{year: 2023, ratio: 7.0}, {year: 2022, ratio: 7.3}, {year: 2021, ratio: 7.5}]
-	        },
-	        {
-	          name: "医学",
-	          subjects: ["内科学", "外科学", "儿科学"],
-	          scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
-	          admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
-	        },
-	  	  {
-	  	    name: "医学",
-	  	    subjects: ["内科学", "外科学", "儿科学"],
-	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
-	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
-	  	  },
-	  	  {
-	  	    name: "医学",
-	  	    subjects: ["内科学", "外科学", "儿科学"],
-	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
-	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
-	  	  },
-	  	  {
-	  	    name: "医学",
-	  	    subjects: ["内科学", "外科学", "儿科学"],
-	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
-	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
-	  	  },
-	  	  {
-	  	    name: "医学",
-	  	    subjects: ["内科学", "外科学", "儿科学"],
-	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
-	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
-	  	  },
-	  	  {
-	  	    name: "医学",
-	  	    subjects: ["内科学", "外科学", "儿科学"],
-	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
-	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
-	  	  },
-	  	  {
-	  	    name: "医学",
-	  	    subjects: ["内科学", "外科学", "儿科学"],
-	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
-	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
-	  	  },
-	  	  {
-	  	    name: "医学",
-	  	    subjects: ["内科学", "外科学", "儿科学"],
-	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
-	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
-	  	  },
-	  	  {
-	  	    name: "医学",
-	  	    subjects: ["内科学", "外科学", "儿科学"],
-	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
-	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
-	  	  },
-	  	  {
-	  	    name: "医学",
-	  	    subjects: ["内科学", "外科学", "儿科学"],
-	  	    scores: [{year: 2023, score: 90}, {year: 2022, score: 88}, {year: 2021, score: 85}],
-	  	    admissionRatio: [{year: 2023, ratio: 4.5}, {year: 2022, ratio: 4.8}, {year: 2021, ratio: 5.0}]
-	  	  }
-  ];
+		<div class="content" id="contentArea">
+			<div class="initial-hint">请选择一个专业以查看详情</div>
+		</div>
 
 
-  var navList = document.getElementById('navList');
-  var contentArea = document.getElementById('contentArea');
+	</div>
+	<footer class="navbar">
+		<a href="index.html">
+			<span class="navbar-icon" id="home-icon"></span>
+			<span>主 页</span>
+		</a>
+		<a href="class.html">
+			<span class="navbar-icon" id="subject-icon"></span>
+			<span>专 业</span>
+		</a>
+		<a href="school.html">
+			<span class="navbar-icon" id="school-icon"></span>
+			<span>院 校</span>
+		</a>
+		<a href="my.html">
+			<span class="navbar-icon" id="mine-icon"></span>
+			<span>我 的</span>
+		</a>
+	</footer>
+	<script>
+        // 异步加载 JSON 文件
+        function loadJSON(callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.overrideMimeType("application/json");
+            xhr.open('GET', 'class.json', true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status == "200") {
+                    callback(xhr.responseText);
+                }
+            };
+            xhr.send(null);
+        }
 
-  majors.forEach(function(major) {
-    var listItem = document.createElement('li');
-    listItem.textContent = major.name;
-    listItem.addEventListener('click', function() {
-      displayDetails(major);
-    });
-    navList.appendChild(listItem);
-  });
+        // 显示专业详情
+        function displayDetails(major) {
+            // 清除现有内容
+            contentArea.innerHTML = '';
 
-  function displayDetails(major) {
-    contentArea.innerHTML = '';
-    var heading = document.createElement('h2');
-    heading.textContent = major.name;
-    contentArea.appendChild(heading);
+            var majorTitle = document.createElement('h2');
+            majorTitle.className = 'module-title';
+            majorTitle.textContent = major.name;
+            contentArea.appendChild(majorTitle);
 
-    var detailsDiv = document.createElement('div');
-    detailsDiv.classList.add('details');
+            // 创建和添加科目标题及列表
+            var subjectsModule = document.createElement('div');
+            subjectsModule.className = 'module';
+            var subjectsHeading = document.createElement('h3');
+            subjectsHeading.textContent = '科目';
+            subjectsModule.appendChild(subjectsHeading);
+            var subjectsList = document.createElement('ul');
+            major.subjects.forEach(function (subject) {
+                var subjectItem = document.createElement('li');
+                subjectItem.textContent = subject;
+                subjectsList.appendChild(subjectItem);
+            });
+            subjectsModule.appendChild(subjectsList);
 
-    var subjectsList = document.createElement('ul');
-    var scoresList = document.createElement('ul');
-    var admissionRatioList = document.createElement('ul');
+            // 创建和添加历年国家线标题及列表
+            var scoresModule = document.createElement('div');
+            scoresModule.className = 'module';
+            var scoresHeading = document.createElement('h3');
+            scoresHeading.textContent = '历年国家线';
+            scoresModule.appendChild(scoresHeading);
+            var scoresList = document.createElement('ul');
+            major.scores.forEach(function (scoreObj) {
+                var scoreItem = document.createElement('li');
+                scoreItem.textContent = `${scoreObj.year}年: ${scoreObj.score}`;
+                scoresList.appendChild(scoreItem);
+            });
+            scoresModule.appendChild(scoresList);
 
-    var subjectsHeading = document.createElement('h3');
-    subjectsHeading.textContent = "科目";
-    subjectsList.appendChild(subjectsHeading);
-    var scoresHeading = document.createElement('h3');
-    scoresHeading.textContent = "历年国家线";
-    scoresList.appendChild(scoresHeading);
-    var admissionRatioHeading = document.createElement('h3');
-    admissionRatioHeading.textContent = "历年报录录比";
-    admissionRatioList.appendChild(admissionRatioHeading);
+            // 创建和添加历年报录比标题及列表
+            var admissionRatioModule = document.createElement('div');
+            admissionRatioModule.className = 'module';
+            var admissionRatioHeading = document.createElement('h3');
+            admissionRatioHeading.textContent = '历年报录比';
+            admissionRatioModule.appendChild(admissionRatioHeading);
+            var admissionRatioList = document.createElement('ul');
+            major.admissionRatio.forEach(function (ratioObj) {
+                var ratioItem = document.createElement('li');
+                ratioItem.textContent = `${ratioObj.year}年: ${ratioObj.ratio}`;
+                admissionRatioList.appendChild(ratioItem);
+            });
+            admissionRatioModule.appendChild(admissionRatioList);
 
-    major.subjects.forEach(function(subject) {
-      var subjectItem = document.createElement('li');
-      subjectItem.textContent = subject;
-      subjectItem.addEventListener('click', function() {
-        navigateToSubjectPage(major.name, subject);
-      });
-      subjectsList.appendChild(subjectItem);
-    });
-    
-    function navigateToSubjectPage(majorName, subject) {
-      var url = 'subject-details.html?major=' + encodeURIComponent(majorName) + '&subject=' + encodeURIComponent(subject);
-      window.location.href = url;
-    }
+            // 添加所有模块到 contentArea
+            contentArea.appendChild(subjectsModule);
+            contentArea.appendChild(scoresModule);
+            contentArea.appendChild(admissionRatioModule);
+        }
 
+        // 填充导航菜单
+        function populateNavMenu(majors) {
+            var navList = document.getElementById('navList');
 
-    major.scores.forEach(function(scoreObj) {
-      var scoreItem = document.createElement('li');
-      scoreItem.textContent = ` ${scoreObj.year}年: ${scoreObj.score}`;
-      scoresList.appendChild(scoreItem);
-    });
+            majors.forEach(function (major) {
+                var listItem = document.createElement('li');
+                listItem.textContent = major.name;
+                listItem.addEventListener('click', function () {
+                    displayDetails(major);
+                });
+                navList.appendChild(listItem);
+            });
+        }
 
-    major.admissionRatio.forEach(function(ratioObj) {
-      var ratioItem = document.createElement('li');
-      ratioItem.textContent = ` ${ratioObj.year}年: ${ratioObj.ratio}`;
-      admissionRatioList.appendChild(ratioItem);
-    });
+        // 加载 JSON 数据并执行回调函数
+        loadJSON(function (response) {
+            var majors = JSON.parse(response);
+            populateNavMenu(majors);
+        });
 
-    detailsDiv.appendChild(subjectsList);
-    detailsDiv.appendChild(scoresList);
-    detailsDiv.appendChild(admissionRatioList);
-    contentArea.appendChild(detailsDiv);
-  }
-</script>
+    </script>
 
 </body>
+
 </html>

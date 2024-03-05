@@ -1,236 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>高校筛选</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-    header {
-        background-color: #333;
-        color: #fff;
-        padding: 10px;
-        text-align: center;
-    }
-	.navbar {
-	    background-color: #333;
-	    display: flex; /* 使用 Flexbox 布局 */
-	    justify-content: space-around; /* 平均分配空间 */
-	    align-items: center; /* 垂直居中 */
-	    position: fixed;
-	    bottom: 0;
-	    width: 100%;
-	    z-index: 999; /* 保证在顶部 */
-	}
-	
-	.navbar a {
-	    color: #f2f2f2;
-	    text-align: center;
-	    padding: 14px 20px;
-	    text-decoration: none;
-	    font-size: 17px;
-	}
-	
-	.navbar a:hover {
-	    background-color: #ddd;
-	    color: black;
-	}
-	
-	/* 媒体查询，适应较小屏幕 */
-	@media only screen and (max-width: 600px) {
-	    .navbar {
-	        justify-content: space-between; /* 将链接放在两端 */
-	    }
-	
-	    .navbar a {
-	        flex-grow: 1; /* 充满剩余空间 */
-	    }
-	}
-    .filter {
-        display: flex;
-        justify-content: space-around;
-        padding: 20px;
-        background-color: #f0f0f0;
-    }
-    label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-    select {
-        padding: 10px;
-        font-size: 16px;
-        width: 80px; /* Adjust width as needed */
-    }
-    .results {
-        margin: 20px;
-    }
-    .university-info {
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-    h3 {
-        margin-top: 0;
-    }
-</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./style.css">
+	<title>高校筛选</title>
+	<style>
+		.navbar #school-icon::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 50%;
+			width: 25%;
+			height: 100%;
+			background-color: #6bc3f3;
+			opacity: 0.5;
+			z-index: -1;
+			border-radius: 10px;
+			/* 添加圆角 */
+			box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+			/* 内阴影，模拟立体效果 */
+		}
+
+
+		.filter {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			/* 修改此行 */
+			flex-wrap: wrap;
+			padding: 20px;
+			background-color: #f0f0f0;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.filter-item {
+			flex-basis: calc(25% - 20px);
+			margin-bottom: 10px;
+			flex-grow: 1;
+			/* 新增此行 */
+		}
+
+		label {
+			display: block;
+			margin-bottom: 5px;
+			font-weight: bold;
+		}
+
+		select {
+			padding: 10px;
+			font-size: 16px;
+			width: 100%;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			appearance: none;
+			background-image: linear-gradient(45deg, transparent 50%, #6bc3f3 50%), linear-gradient(135deg, #6bc3f3 50%, transparent 50%);
+			background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px);
+			background-size: 5px 5px, 5px 5px;
+			background-repeat: no-repeat;
+		}
+
+
+
+		.results {
+			margin: 20px;
+		}
+
+		.university-info {
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			padding: 20px;
+			margin-bottom: 20px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			transition: all 0.3s ease;
+			/* 添加过渡效果 */
+		}
+
+		.university-info:hover {
+			transform: translateY(-5px);
+			/* 悬停时稍微抬高 */
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+			/* 增加阴影 */
+		}
+
+		.university-info h3 {
+			margin: 0 0 10px;
+			font-size: 24px;
+			color: #333;
+			/* 调整标题颜色 */
+		}
+
+		.university-info p {
+			margin: 5px 0;
+			font-size: 16px;
+			color: #666;
+			/* 调整文本颜色 */
+		}
+
+		.university-info img {
+			width: 50px;
+			/* 图片大小 */
+			height: 50px;
+			border-radius: 50%;
+			/* 圆形图片 */
+			margin-right: 10px;
+		}
+
+
+		h3 {
+			margin-top: 0;
+		}
+	</style>
 </head>
+
 <body>
-<div class="filter">
-    <div>
-        <label for="location">所在地:</label>
-        <select id="location">
-            <option value="all">全部</option>
-            <option value="北京">北京</option>
-            <option value="天津">天津</option>
-			<option value="河北">河北</option>
-			<option value="山西">山西</option>
-			<option value="内蒙古">内蒙古</option>
-			<option value="辽宁">辽宁</option>
-			<option value="吉林">吉林</option>
-			<option value="黑龙江">黑龙江</option>
-			<option value="上海">上海</option>
-			<option value="江苏">江苏</option>
-			<option value="浙江">浙江</option>
-			<option value="安徽">安徽</option>
-			<option value="福建">福建</option>
-			<option value="江西">江西</option>
-			<option value="山东">山东</option>
-			<option value="河南">河南</option>
-			<option value="湖北">湖北</option>
-			<option value="湖南">湖南</option>
-			<option value="广东">广东</option>
-			<option value="广西">广西</option>
-			<option value="海南">海南</option>
-			<option value="重庆">重庆</option>
-			<option value="四川">四川</option>
-			<option value="贵州">贵州</option>
-			<option value="云南">云南</option>
-			<option value="西藏">西藏</option>
-			<option value="陕西">陕西</option>
-			<option value="甘肃">甘肃</option>
-			<option value="青海">青海</option>
-			<option value="宁夏">宁夏</option>
-			<option value="新疆">新疆</option>
-			<option value="香港">香港</option>
-			<option value="澳门">澳门</option>
-			<option value="台湾">台湾</option>
+	<div class="filter">
+		<div class="filter-item">
+			<label for="location">所在地:</label>
+			<select id="location">
+				<option value="all">全部</option>
+				<option value="北京">北京</option>
+				<option value="天津">天津</option>
+				<option value="河北">河北</option>
+				<option value="山西">山西</option>
+				<option value="内蒙古">内蒙古</option>
+				<option value="辽宁">辽宁</option>
+				<option value="吉林">吉林</option>
+				<option value="黑龙江">黑龙江</option>
+				<option value="上海">上海</option>
+				<option value="江苏">江苏</option>
+				<option value="浙江">浙江</option>
+				<option value="安徽">安徽</option>
+				<option value="福建">福建</option>
+				<option value="江西">江西</option>
+				<option value="山东">山东</option>
+				<option value="河南">河南</option>
+				<option value="湖北">湖北</option>
+				<option value="湖南">湖南</option>
+				<option value="广东">广东</option>
+				<option value="广西">广西</option>
+				<option value="海南">海南</option>
+				<option value="重庆">重庆</option>
+				<option value="四川">四川</option>
+				<option value="贵州">贵州</option>
+				<option value="云南">云南</option>
+				<option value="西藏">西藏</option>
+				<option value="陕西">陕西</option>
+				<option value="甘肃">甘肃</option>
+				<option value="青海">青海</option>
+				<option value="宁夏">宁夏</option>
+				<option value="新疆">新疆</option>
+				<option value="香港">香港</option>
+				<option value="澳门">澳门</option>
+				<option value="台湾">台湾</option>
 
-        </select>
-    </div>
-    <div>
-        <label for="character">院校特性:</label>
-        <select id="character">
-            <option value="all">全部</option>
-            <option value="985">985</option>
-            <option value="211">211</option>
-            <option value="双一流">双一流</option>
-        </select>
-    </div>
-    <div>
-        <label for="type">院校属性:</label>
-        <select id="type">
-            <option value="all">全部</option>
-            <option value="综合类">综合类</option>
-            <option value="理工类">理工类</option>
-            <option value="文科类">文科类</option>
-            <option value="艺术类">艺术类</option>
-            <option value="民族类">民族类</option>
-        </select>
-    </div>
-    <div>
-        <label for="affiliation">院校隶属:</label>
-        <select id="affiliation">
-            <option value="all">全部</option>
-            <option value="教育部">教育部</option>
-            <option value="其它部委">其它部委</option>
-            <option value="地方">地方</option>
-        </select>
-    </div>
-</div>
-<div class="results" id="results">
-    <!-- 结果将通过 JavaScript 动态填充到这里 -->
-</div>
-<footer class="navbar">
-    <a href="index.html">
-        <span>主页</span>
-    </a>
-    <a href="class.html">
-        <span>专业</span>
-    </a>
-    <a href="school.html">
-        <span>院校</span>
-    </a>
-    <a href="my.html">
-        <span>我的</span>
-    </a>
-</footer>
-<script>
-    // 预设的高校信息数组
-    const universities = [
-        { name: "清华大学", location: "北京", character: "985", type: "综合类", affiliation: "教育部" },
-        { name: "北京大学", location: "北京", character: "985", type: "综合类", affiliation: "教育部" },
-        { name: "南京大学", location: "江苏", character: "985", type: "综合类", affiliation: "教育部" },
-        // 其他高校信息
-    ];
+			</select>
+		</div>
+		<div class="filter-item">
+			<label for="character">院校特性:</label>
+			<select id="character">
+				<option value="all">全部</option>
+				<option value="985">985</option>
+				<option value="211">211</option>
+				<option value="双一流">双一流</option>
+			</select>
+		</div>
+		<div class="filter-item">
+			<label for="type">院校属性:</label>
+			<select id="type">
+				<option value="all">全部</option>
+				<option value="综合类">综合类</option>
+				<option value="理工类">理工类</option>
+				<option value="文科类">文科类</option>
+				<option value="艺术类">艺术类</option>
+				<option value="民族类">民族类</option>
+			</select>
+		</div>
+		<div class="filter-item">
+			<label for="affiliation">院校隶属:</label>
+			<select id="affiliation">
+				<option value="all">全部</option>
+				<option value="教育部">教育部</option>
+				<option value="其它部委">其它部委</option>
+				<option value="地方">地方</option>
+			</select>
+		</div>
+	</div>
+	<div class="results" id="results">
+		<!-- 结果将通过 JavaScript 动态填充到这里 -->
+	</div>
+	<footer class="navbar">
+		<a href="index.html">
+			<span class="navbar-icon" id="home-icon"></span>
+			<span>主 页</span>
+		</a>
+		<a href="class.html">
+			<span class="navbar-icon" id="subject-icon"></span>
+			<span>专 业</span>
+		</a>
+		<a href="school.html">
+			<span class="navbar-icon" id="school-icon"></span>
+			<span>院 校</span>
+		</a>
+		<a href="my.html">
+			<span class="navbar-icon" id="mine-icon"></span>
+			<span>我 的</span>
+		</a>
+	</footer>
+	<script>
+		// 获取筛选条件的选择框
+		const locationSelect = document.getElementById('location');
+		const characterSelect = document.getElementById('character');
+		const typeSelect = document.getElementById('type');
+		const affiliationSelect = document.getElementById('affiliation');
+		const resultsDiv = document.getElementById('results');
 
-    // 获取筛选条件的选择框
-    const locationSelect = document.getElementById('location');
-    const characterSelect = document.getElementById('character');
-    const typeSelect = document.getElementById('type');
-    const affiliationSelect = document.getElementById('affiliation');
-    const resultsDiv = document.getElementById('results');
+		// 初始加载所有高校信息
+		loadUniversities();
 
-    // 初始加载所有高校信息
-    displayResults(universities);
+		// 监听选择框变化事件，进行筛选
+		[locationSelect, characterSelect, typeSelect, affiliationSelect].forEach(select => {
+			select.addEventListener('change', filterUniversities);
+		});
 
-    // 监听选择框变化事件，进行筛选
-    [locationSelect, characterSelect, typeSelect, affiliationSelect].forEach(select => {
-        select.addEventListener('change', filterUniversities);
-    });
+		// 加载高校信息
+		function loadUniversities() {
+			fetch('school.json') // 替换为你的 JSON 文件路径
+				.then(response => response.json())
+				.then(data => {
+					filterUniversities(); // 加载成功后进行筛选
+				})
+				.catch(error => {
+					console.error('Error loading universities:', error);
+				});
+		}
 
-    // 筛选高校信息
-    function filterUniversities() {
-        const locationValue = locationSelect.value;
-        const characterValue = characterSelect.value;
-        const typeValue = typeSelect.value;
-        const affiliationValue = affiliationSelect.value;
+		// 筛选高校信息
+		function filterUniversities() {
+			fetch('school.json') // 替换为你的 JSON 文件路径
+				.then(response => response.json())
+				.then(data => {
+					const locationValue = locationSelect.value;
+					const characterValue = characterSelect.value;
+					const typeValue = typeSelect.value;
+					const affiliationValue = affiliationSelect.value;
 
-        const filteredUniversities = universities.filter(university => {
-            return (locationValue === 'all' || university.location === locationValue) &&
-                   (characterValue === 'all' || university.character === characterValue) &&
-                   (typeValue === 'all' || university.type === typeValue) &&
-                   (affiliationValue === 'all' || university.affiliation === affiliationValue);
-        });
+					const filteredUniversities = data.filter(university => {
+						return (locationValue === 'all' || university.location === locationValue) &&
+							(characterValue === 'all' || university.character === characterValue) &&
+							(typeValue === 'all' || university.type === typeValue) &&
+							(affiliationValue === 'all' || university.affiliation === affiliationValue);
+					});
 
-        displayResults(filteredUniversities);
-    }
+					displayResults(filteredUniversities);
+				})
+				.catch(error => {
+					console.error('Error filtering universities:', error);
+				});
+		}
 
-    // 显示筛选结果
-    function displayResults(universities) {
-        resultsDiv.innerHTML = '';
-        if (universities.length === 0) {
-            resultsDiv.innerHTML = '<p>未找到符合条件的高校。</p>';
-        } else {
-            universities.forEach(university => {
-                const universityInfo = document.createElement('div');
-                universityInfo.classList.add('university-info');
-                universityInfo.innerHTML = `
-                    <h3>${university.name}</h3>
-                    <p><strong>所在地：</strong>${university.location}</p>
-                    <p><strong>院校特性：</strong>${university.character}</p>
-                    <p><strong>院校属性：</strong>${university.type}</p>
-                    <p><strong>院校隶属：</strong>${university.affiliation}</p>
-                `;
-                resultsDiv.appendChild(universityInfo);
-            });
-        }
-    }
-</script>
+		// 显示筛选结果
+		function displayResults(universities) {
+			resultsDiv.innerHTML = '';
+			if (universities.length === 0) {
+				resultsDiv.innerHTML = '<p>未找到符合条件的高校。</p>';
+			} else {
+				universities.forEach(university => {
+					const universityInfo = document.createElement('div');
+					universityInfo.classList.add('university-info');
+					universityInfo.innerHTML = `
+						<h3>${university.name}</h3>
+						<p><strong>所在地：</strong>${university.location}</p>
+						<p><strong>院校特性：</strong>${university.character}</p>
+						<p><strong>院校属性：</strong>${university.type}</p>
+						<p><strong>院校隶属：</strong>${university.affiliation}</p>
+					`;
+					resultsDiv.appendChild(universityInfo);
+				});
+			}
+		}
+	</script>
 </body>
+
 </html>

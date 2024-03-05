@@ -1,0 +1,82 @@
+/*重置样式*/
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Times New Roman", Arial, "Microsoft YaHei", sans-serif;
+	margin: 0;
+	padding: 0;
+	padding-bottom: 60px;
+}
+
+.navbar {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1); /* 添加底部阴影 */
+}
+
+.navbar a {
+    color: #2d2d2d;
+    text-align: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+
+
+.navbar #home-icon,
+.navbar #subject-icon,
+.navbar #school-icon,
+.navbar #mine-icon {
+    width: 20px; /* 调整图标大小 */
+    height: 20px; /* 调整图标大小 */
+    margin-bottom: 3px;
+}
+
+.navbar #home-icon {
+    background: url('img/home_icon.png') no-repeat center center;
+    background-size: contain;
+}
+
+.navbar #subject-icon {
+    background: url('img/subject_icon.png') no-repeat center center;
+    background-size: contain;
+}
+
+.navbar #school-icon {
+    background: url('img/school_icon.png') no-repeat center center;
+    background-size: contain;
+}
+
+.navbar #mine-icon {
+    background: url('img/mine_icon.png') no-repeat center center;
+    background-size: contain;
+}
+
+/* 媒体查询，适应较小屏幕 */
+@media only screen and (max-width: 600px) {
+	.navbar {
+		justify-content: space-between;
+		/* 将链接放在两端 */
+	}
+
+	.navbar a {
+		flex-grow: 1;
+		/* 充满剩余空间 */
+	}
+}

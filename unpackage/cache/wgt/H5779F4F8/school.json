@@ -1,0 +1,23 @@
+[
+    {
+        "name": "清华大学",
+        "location": "北京",
+        "character": "985",
+        "type": "综合类",
+        "affiliation": "教育部"
+    },
+    {
+        "name": "北京大学",
+        "location": "北京",
+        "character": "985",
+        "type": "综合类",
+        "affiliation": "教育部"
+    },
+    {
+        "name": "南京大学",
+        "location": "江苏",
+        "character": "985",
+        "type": "综合类",
+        "affiliation": "教育部"
+    }
+]

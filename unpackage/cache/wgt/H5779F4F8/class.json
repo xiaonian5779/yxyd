@@ -1,0 +1,399 @@
+[
+    {
+        "name": "计算机科学",
+        "subjects": [
+            "数据结构",
+            "算法",
+            "编程语言"
+        ],
+        "scores": [
+            {
+                "year": 2023,
+                "score": 85
+            },
+            {
+                "year": 2022,
+                "score": 82
+            },
+            {
+                "year": 2021,
+                "score": 78
+            }
+        ],
+        "admissionRatio": [
+            {
+                "year": 2023,
+                "ratio": 5.0
+            },
+            {
+                "year": 2022,
+                "ratio": 5.3
+            },
+            {
+                "year": 2021,
+                "ratio": 5.8
+            }
+        ]
+    },
+	{
+	    "name": "计算机科学",
+	    "subjects": [
+	        "数据结构",
+	        "算法",
+	        "编程语言"
+	    ],
+	    "scores": [
+	        {
+	            "year": 2023,
+	            "score": 85
+	        },
+	        {
+	            "year": 2022,
+	            "score": 82
+	        },
+	        {
+	            "year": 2021,
+	            "score": 78
+	        }
+	    ],
+	    "admissionRatio": [
+	        {
+	            "year": 2023,
+	            "ratio": 5.0
+	        },
+	        {
+	            "year": 2022,
+	            "ratio": 5.3
+	        },
+	        {
+	            "year": 2021,
+	            "ratio": 5.8
+	        }
+	    ]
+	},
+	{
+	    "name": "计算机科学",
+	    "subjects": [
+	        "数据结构",
+	        "算法",
+	        "编程语言"
+	    ],
+	    "scores": [
+	        {
+	            "year": 2023,
+	            "score": 85
+	        },
+	        {
+	            "year": 2022,
+	            "score": 82
+	        },
+	        {
+	            "year": 2021,
+	            "score": 78
+	        }
+	    ],
+	    "admissionRatio": [
+	        {
+	            "year": 2023,
+	            "ratio": 5.0
+	        },
+	        {
+	            "year": 2022,
+	            "ratio": 5.3
+	        },
+	        {
+	            "year": 2021,
+	            "ratio": 5.8
+	        }
+	    ]
+	},
+	{
+	    "name": "计算机科学",
+	    "subjects": [
+	        "数据结构",
+	        "算法",
+	        "编程语言"
+	    ],
+	    "scores": [
+	        {
+	            "year": 2023,
+	            "score": 85
+	        },
+	        {
+	            "year": 2022,
+	            "score": 82
+	        },
+	        {
+	            "year": 2021,
+	            "score": 78
+	        }
+	    ],
+	    "admissionRatio": [
+	        {
+	            "year": 2023,
+	            "ratio": 5.0
+	        },
+	        {
+	            "year": 2022,
+	            "ratio": 5.3
+	        },
+	        {
+	            "year": 2021,
+	            "ratio": 5.8
+	        }
+	    ]
+	},
+	{
+	    "name": "计算机科学",
+	    "subjects": [
+	        "数据结构",
+	        "算法",
+	        "编程语言"
+	    ],
+	    "scores": [
+	        {
+	            "year": 2023,
+	            "score": 85
+	        },
+	        {
+	            "year": 2022,
+	            "score": 82
+	        },
+	        {
+	            "year": 2021,
+	            "score": 78
+	        }
+	    ],
+	    "admissionRatio": [
+	        {
+	            "year": 2023,
+	            "ratio": 5.0
+	        },
+	        {
+	            "year": 2022,
+	            "ratio": 5.3
+	        },
+	        {
+	            "year": 2021,
+	            "ratio": 5.8
+	        }
+	    ]
+	},
+	{
+	    "name": "计算机科学",
+	    "subjects": [
+	        "数据结构",
+	        "算法",
+	        "编程语言"
+	    ],
+	    "scores": [
+	        {
+	            "year": 2023,
+	            "score": 85
+	        },
+	        {
+	            "year": 2022,
+	            "score": 82
+	        },
+	        {
+	            "year": 2021,
+	            "score": 78
+	        }
+	    ],
+	    "admissionRatio": [
+	        {
+	            "year": 2023,
+	            "ratio": 5.0
+	        },
+	        {
+	            "year": 2022,
+	            "ratio": 5.3
+	        },
+	        {
+	            "year": 2021,
+	            "ratio": 5.8
+	        }
+	    ]
+	},
+	{
+	    "name": "计算机科学",
+	    "subjects": [
+	        "数据结构",
+	        "算法",
+	        "编程语言"
+	    ],
+	    "scores": [
+	        {
+	            "year": 2023,
+	            "score": 85
+	        },
+	        {
+	            "year": 2022,
+	            "score": 82
+	        },
+	        {
+	            "year": 2021,
+	            "score": 78
+	        }
+	    ],
+	    "admissionRatio": [
+	        {
+	            "year": 2023,
+	            "ratio": 5.0
+	        },
+	        {
+	            "year": 2022,
+	            "ratio": 5.3
+	        },
+	        {
+	            "year": 2021,
+	            "ratio": 5.8
+	        }
+	    ]
+	},
+	{
+	    "name": "计算机科学",
+	    "subjects": [
+	        "数据结构",
+	        "算法",
+	        "编程语言"
+	    ],
+	    "scores": [
+	        {
+	            "year": 2023,
+	            "score": 85
+	        },
+	        {
+	            "year": 2022,
+	            "score": 82
+	        },
+	        {
+	            "year": 2021,
+	            "score": 78
+	        }
+	    ],
+	    "admissionRatio": [
+	        {
+	            "year": 2023,
+	            "ratio": 5.0
+	        },
+	        {
+	            "year": 2022,
+	            "ratio": 5.3
+	        },
+	        {
+	            "year": 2021,
+	            "ratio": 5.8
+	        }
+	    ]
+	},
+	{
+	    "name": "计算机科学",
+	    "subjects": [
+	        "数据结构",
+	        "算法",
+	        "编程语言"
+	    ],
+	    "scores": [
+	        {
+	            "year": 2023,
+	            "score": 85
+	        },
+	        {
+	            "year": 2022,
+	            "score": 82
+	        },
+	        {
+	            "year": 2021,
+	            "score": 78
+	        }
+	    ],
+	    "admissionRatio": [
+	        {
+	            "year": 2023,
+	            "ratio": 5.0
+	        },
+	        {
+	            "year": 2022,
+	            "ratio": 5.3
+	        },
+	        {
+	            "year": 2021,
+	            "ratio": 5.8
+	        }
+	    ]
+	},
+	
+	{
+	    "name": "计算机科学",
+	    "subjects": [
+	        "数据结构",
+	        "算法",
+	        "编程语言"
+	    ],
+	    "scores": [
+	        {
+	            "year": 2023,
+	            "score": 85
+	        },
+	        {
+	            "year": 2022,
+	            "score": 82
+	        },
+	        {
+	            "year": 2021,
+	            "score": 78
+	        }
+	    ],
+	    "admissionRatio": [
+	        {
+	            "year": 2023,
+	            "ratio": 5.0
+	        },
+	        {
+	            "year": 2022,
+	            "ratio": 5.3
+	        },
+	        {
+	            "year": 2021,
+	            "ratio": 5.8
+	        }
+	    ]
+	},
+    {
+        "name": "人文学科",
+        "subjects": [
+            "历史",
+            "文学",
+            "哲学"
+        ],
+        "scores": [
+            {
+                "year": 2023,
+                "score": 78
+            },
+            {
+                "year": 2022,
+                "score": 75
+            },
+            {
+                "year": 2021,
+                "score": 72
+            }
+        ],
+        "admissionRatio": [
+            {
+                "year": 2023,
+                "ratio": 6.5
+            },
+            {
+                "year": 2022,
+                "ratio": 6.8
+            },
+            {
+                "year": 2021,
+                "ratio": 7.0
+            }
+        ]
+    }
+]

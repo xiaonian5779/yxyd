@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>用户注册</title>
+</head>
+<body>
+
+    <form id="registrationForm">
+        <h2>用户注册</h2>
+        <label for="username">用户名:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">密码:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <label for="confirmPassword">确认密码:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required><br>
+
+        <button type="button" onclick="registerUser()">注册</button>
+        <button type="button" onclick="return_index()">返回登录</button>
+    </form>
+
+    <div id="registrationResult"></div>
+	
+
+    <script>
+        function registerUser() {
+            var usernameInput = document.getElementById('username');
+            var passwordInput = document.getElementById('password');
+            var confirmPasswordInput = document.getElementById('confirmPassword');
+            
+            var username = encodeURIComponent(usernameInput.value);
+            var password = encodeURIComponent(passwordInput.value);
+            var confirmPassword = encodeURIComponent(confirmPasswordInput.value);
+            
+            if (!username || !password || !confirmPassword) {
+                window.alert("用户名或者密码为空");
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                window.alert("前后密码不一致");
+                return;
+            }
+            
+            window.alert('注册成功');
+		}
+		function return_index(){
+		    // 重定向到index.html
+		    window.location.href = "index.html";
+		}
+
+		
+    </script>
+
+</body>
+</html>
