@@ -110,59 +110,91 @@
 	</footer>
 
 	<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Fetch user data from JSON file
-            fetch('users.json')
-                .then(response => response.json())
-                .then(users => {
-                    // 获取浏览器本地存储的用户名
-                    var username = localStorage.getItem("username");
+            document.addEventListener("DOMContentLoaded", function() {
+                loadUserData();
+            });
+        
+		
+			let users = []; // 存储从 JSON 文件加载的高校数据
+					
+			// 异步加载 JSON 文件
+			function loadJSON(callback) {
+			    var xhr = new XMLHttpRequest();
+			    xhr.overrideMimeType("application/json");
+			    xhr.open('GET', 'users.json', true);
+			    xhr.onreadystatechange = function () {
+			        if (xhr.readyState === 4 && xhr.status == "200") {
+			            callback(xhr.responseText);
+			        }
+			    };
+			    xhr.send(null);
+			}
+			// 加载 JSON 数据并执行回调函数
+			loadJSON(function (response) {
+			    users = JSON.parse(response); // 修改此处，避免重新声明局部变量
+			    var username = localStorage.getItem("username");
+			    if (username) {
+			        displayUserDetails(users, username);
+			    } else {
+			        displayGuestDetails();
+			    }
+			});
+        
+        
+            // 显示用户详情
+            function displayUserDetails(users, username) {
+                var userDetails = users.find(user => user.username === username);
+                if (userDetails) {
+                    document.getElementById("username").textContent = userDetails.fullName;
+                    var userDetailsHTML = "<p>邮箱: " + userDetails.email + "</p>";
+                    userDetailsHTML += "<p>签名: " + userDetails.bio + "</p>";
+                    document.getElementById("userDetails").innerHTML = userDetailsHTML;
+                    displayLogoutButton();
+                } else {
+                    displayGuestDetails();
+                }
+            }
+        
+            // 显示游客详情
+            function displayGuestDetails() {
+                document.getElementById("username").textContent = "游客";
+                var noInfoMessage = "<p>暂无信息，请登录</p>";
+                document.getElementById("userDetails").innerHTML = noInfoMessage;
+                displayLoginButton();
+            }
+        
+            // 显示退出按钮
+            function displayLogoutButton() {
+                var logoutButton = createButton("退出登录", logout);
+                document.getElementById("loginLogoutButtons").appendChild(logoutButton);
+            }
+        
+            // 显示登录按钮
+            function displayLoginButton() {
+                var loginButton = createButton("登录", redirectToLoginPage);
+                document.getElementById("loginLogoutButtons").appendChild(loginButton);
+            }
+        
+            // 创建按钮
+            function createButton(text, onClickHandler) {
+                var button = document.createElement("button");
+                button.textContent = text;
+                button.onclick = onClickHandler;
+                return button;
+            }
+        
+            // 重定向到登录页面
+            function redirectToLoginPage() {
+                window.location.href = "sign.html"; // 这里需要重定向到登录页面的路径
+            }
+        
+            // 退出登录
+            function logout() {
+                localStorage.removeItem("username");
+                window.location.href = "index.html";
+            }
+        </script>
 
-                    // 查找匹配的用户数据
-                    var userDetails = users.find(function(user) {
-                        return user.username === username;
-                    });
-
-                    // If userDetails found, display details
-                    if (userDetails) {
-                        document.getElementById("username").textContent = userDetails.fullName;
-
-                        var userDetailsHTML = "<p>邮箱: " + userDetails.email + "</p>";
-                        userDetailsHTML += "<p>签名: " + userDetails.bio + "</p>";
-
-                        document.getElementById("userDetails").innerHTML = userDetailsHTML;
-
-                        // 显示退出按钮
-                        var logoutButton = document.createElement("button");
-                        logoutButton.textContent = "退出登录";
-                        logoutButton.onclick = logout;
-                        document.getElementById("loginLogoutButtons").appendChild(logoutButton);
-                    } else {
-                        document.getElementById("username").textContent = "游客";
-
-                        // 显示暂无信息
-                        var noInfoMessage = "<p>暂无信息，请登录</p>";
-                        document.getElementById("userDetails").innerHTML = noInfoMessage;
-
-                        // 显示登录按钮
-                        var loginButton = document.createElement("button");
-                        loginButton.textContent = "登录";
-                        loginButton.onclick = function() {
-                            window.location.href = "sign.html"; // 这里需要重定向到登录页面的路径
-                        };
-                        document.getElementById("loginLogoutButtons").appendChild(loginButton);
-                    }
-                })
-                .catch(error => console.error('Error fetching user data:', error));
-        });
-
-        // 退出登录函数
-        function logout() {
-            // 清除浏览器本地存储的用户名
-            localStorage.removeItem("username");
-            // 重定向到本地的 index.html 页面
-            window.location.href = "index.html";
-        }
     </script>
 </body>
 

@@ -213,80 +213,77 @@
 	</footer>
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
-			// 获取筛选条件的选择框
-			const locationSelect = document.getElementById('location');
-			const characterSelect = document.getElementById('character');
-			const typeSelect = document.getElementById('type');
-			const affiliationSelect = document.getElementById('affiliation');
-			const resultsDiv = document.getElementById('results');
-
-			// 初始加载所有高校信息
-			loadUniversities();
-
-			// 监听选择框变化事件，进行筛选
-			[locationSelect, characterSelect, typeSelect, affiliationSelect].forEach(select => {
-				select.addEventListener('change', filterUniversities);
-			});
-
-			// 加载高校信息
-			function loadUniversities() {
-				fetch('school.json') // 替换为你的 JSON 文件路径
-					.then(response => response.json())
-					.then(data => {
-						filterUniversities(); // 加载成功后进行筛选
-					})
-					.catch(error => {
-						console.error('Error loading universities:', error);
-					});
-			}
-
-			// 筛选高校信息
-			function filterUniversities() {
-				fetch('school.json') // 替换为你的 JSON 文件路径
-					.then(response => response.json())
-					.then(data => {
-						const locationValue = locationSelect.value;
-						const characterValue = characterSelect.value;
-						const typeValue = typeSelect.value;
-						const affiliationValue = affiliationSelect.value;
-
-						const filteredUniversities = data.filter(university => {
-							return (locationValue === 'all' || university.location === locationValue) &&
-								(characterValue === 'all' || university.character.includes(
-									characterValue)) &&
-								(typeValue === 'all' || university.type === typeValue) &&
-								(affiliationValue === 'all' || university.affiliation ===
-									affiliationValue);
-						});
-
-						displayResults(filteredUniversities);
-					})
-					.catch(error => {
-						console.error('Error filtering universities:', error);
-					});
-			}
-
-			// 显示筛选结果
-			function displayResults(universities) {
-				resultsDiv.innerHTML = '';
-				if (universities.length === 0) {
-					resultsDiv.innerHTML = '<p>未找到符合条件的高校。</p>';
-				} else {
-					universities.forEach(university => {
-						const universityInfo = document.createElement('div');
-						universityInfo.classList.add('university-info');
-						universityInfo.innerHTML = `
-                            <h3>${university.name}</h3>
-                            <p><strong>所在地：</strong>${university.location}</p>
-                            <p><strong>院校特性：</strong>${university.character}</p>
-                            <p><strong>院校属性：</strong>${university.type}</p>
-                            <p><strong>院校隶属：</strong>${university.affiliation}</p>
-                        `;
-						resultsDiv.appendChild(universityInfo);
-					});
-				}
-			}
+		    const universitiesDataURL = 'school.json';
+		    const resultsDiv = document.getElementById('results');
+		    let universities = []; // 存储从 JSON 文件加载的高校数据
+		
+		    // 异步加载 JSON 文件
+		    function loadJSON(callback) {
+		        var xhr = new XMLHttpRequest();
+		        xhr.overrideMimeType("application/json");
+		        xhr.open('GET', 'school.json', true);
+		        xhr.onreadystatechange = function () {
+		            if (xhr.readyState === 4 && xhr.status == "200") {
+		                callback(xhr.responseText);
+		            }
+		        };
+		        xhr.send(null);
+		    }
+		    // 加载 JSON 数据并执行回调函数
+		    loadJSON(function (response) {
+		        universities = JSON.parse(response); // 修改此处，避免重新声明局部变量
+		        displayResults(universities);
+		    });
+		
+		    function displayResults(universities) {
+		        resultsDiv.innerHTML = '';
+		        if (universities.length === 0) {
+		            resultsDiv.innerHTML = '<p>未找到符合条件的高校。</p>';
+		        } else {
+		            universities.forEach(university => {
+		                const universityInfo = document.createElement('div');
+		                universityInfo.classList.add('university-info');
+		                universityInfo.innerHTML = `
+		                    <h3>${university.name}</h3>
+		                    <p><strong>所在地：</strong>${university.location}</p>
+		                    <p><strong>院校特性：</strong>${university.character}</p>
+		                    <p><strong>院校属性：</strong>${university.type}</p>
+		                    <p><strong>院校隶属：</strong>${university.affiliation}</p>
+		                `;
+		                resultsDiv.appendChild(universityInfo);
+		            });
+		        }
+		    }
+		
+		    function filterUniversities() {
+		        const locationSelect = document.getElementById('location');
+		        const characterSelect = document.getElementById('character');
+		        const typeSelect = document.getElementById('type');
+		        const affiliationSelect = document.getElementById('affiliation');
+		
+		        const locationValue = locationSelect.value;
+		        const characterValue = characterSelect.value;
+		        const typeValue = typeSelect.value;
+		        const affiliationValue = affiliationSelect.value;
+		
+		        const filteredUniversities = universities.filter(university => {
+		            return (locationValue === 'all' || university.location === locationValue) &&
+		                (characterValue === 'all' || university.character.includes(characterValue)) &&
+		                (typeValue === 'all' || university.type === typeValue) &&
+		                (affiliationValue === 'all' || university.affiliation === affiliationValue);
+		        });
+		
+		        displayResults(filteredUniversities);
+		    }
+		
+		    // Event listeners for filter options
+		    // Ensure you have defined these elements in your HTML
+		    document.getElementById('location').addEventListener('change', filterUniversities);
+		    document.getElementById('character').addEventListener('change', filterUniversities);
+		    document.getElementById('type').addEventListener('change', filterUniversities);
+		    document.getElementById('affiliation').addEventListener('change', filterUniversities);
 		});
+
 	</script>
 </body>
 

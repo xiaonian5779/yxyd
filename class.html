@@ -77,55 +77,54 @@
 		}
 
 		.content {
-    flex: 3;
-    padding: 20px;
-    overflow-y: auto;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-}
+			flex: 3;
+			padding: 20px;
+			overflow-y: auto;
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+		}
 
-.module {
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    transition: all 0.3s ease;
-}
+		.module {
+			padding: 20px;
+			background-color: #ffffff;
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			margin-bottom: 20px;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			transition: all 0.3s ease;
+		}
 
-.module:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
+		.module:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+		}
 
-.module-title {
-    margin-bottom: 15px;
-    font-size: 1.5em;
-    color: #333;
-}
+		.module-title {
+			margin-bottom: 15px;
+			font-size: 1.5em;
+			color: #333;
+		}
 
-.module h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: #333;
-    font-size: 1.2em;
-}
+		.module h3 {
+			margin-top: 0;
+			margin-bottom: 10px;
+			color: #333;
+			font-size: 1.2em;
+		}
 
-.module ul {
-    list-style-type: none;
-    padding: 0;
-}
+		.module ul {
+			list-style-type: none;
+			padding: 0;
+		}
 
-.module ul li {
-    margin-bottom: 8px;
-    color: #555;
-}
-
+		.module ul li {
+			margin-bottom: 8px;
+			color: #555;
+		}
 	</style>
 </head>
 
@@ -162,98 +161,99 @@
 		</a>
 	</footer>
 	<script>
-        // 异步加载 JSON 文件
-        function loadJSON(callback) {
-            var xhr = new XMLHttpRequest();
-            xhr.overrideMimeType("application/json");
-            xhr.open('GET', 'class.json', true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status == "200") {
-                    callback(xhr.responseText);
-                }
-            };
-            xhr.send(null);
-        }
+		// 异步加载 JSON 文件
+		function loadJSON(callback) {
+			var xhr = new XMLHttpRequest();
+			xhr.overrideMimeType("application/json");
+			xhr.open('GET', 'class.json', true);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4 && xhr.status == "200") {
+					callback(xhr.responseText);
+				}
+			};
+			xhr.send(null);
+		}
 
-        // 显示专业详情
-        function displayDetails(major) {
-            // 清除现有内容
-            contentArea.innerHTML = '';
+		// 显示专业详情
+		function displayDetails(major) {
+			// 清除现有内容
+			contentArea.innerHTML = '';
 
-            var majorTitle = document.createElement('h2');
-            majorTitle.className = 'module-title';
-            majorTitle.textContent = major.name;
-            contentArea.appendChild(majorTitle);
+			var majorTitle = document.createElement('h2');
+			majorTitle.className = 'module-title';
+			majorTitle.textContent = major.name;
+			contentArea.appendChild(majorTitle);
 
-            // 创建和添加科目标题及列表
-            var subjectsModule = document.createElement('div');
-            subjectsModule.className = 'module';
-            var subjectsHeading = document.createElement('h3');
-            subjectsHeading.textContent = '科目';
-            subjectsModule.appendChild(subjectsHeading);
-            var subjectsList = document.createElement('ul');
-            major.subjects.forEach(function (subject) {
-                var subjectItem = document.createElement('li');
-                subjectItem.textContent = subject;
-                subjectsList.appendChild(subjectItem);
-            });
-            subjectsModule.appendChild(subjectsList);
+			// 创建和添加科目标题及列表
+			var subjectsModule = document.createElement('div');
+			subjectsModule.className = 'module';
+			var subjectsHeading = document.createElement('h3');
+			subjectsHeading.textContent = '科目';
+			subjectsModule.appendChild(subjectsHeading);
+			var subjectsList = document.createElement('ul');
+			major.subjects.forEach(function (subject) {
+				var subjectItem = document.createElement('li');
+				subjectItem.textContent = subject;
+				subjectsList.appendChild(subjectItem);
+			});
+			subjectsModule.appendChild(subjectsList);
 
-            // 创建和添加历年国家线标题及列表
-            var scoresModule = document.createElement('div');
-            scoresModule.className = 'module';
-            var scoresHeading = document.createElement('h3');
-            scoresHeading.textContent = '历年国家线';
-            scoresModule.appendChild(scoresHeading);
-            var scoresList = document.createElement('ul');
-            major.scores.forEach(function (scoreObj) {
-                var scoreItem = document.createElement('li');
-                scoreItem.textContent = `${scoreObj.year}年: ${scoreObj.score}`;
-                scoresList.appendChild(scoreItem);
-            });
-            scoresModule.appendChild(scoresList);
+			// 创建和添加历年国家线标题及列表
+			var scoresModule = document.createElement('div');
+			scoresModule.className = 'module';
+			var scoresHeading = document.createElement('h3');
+			scoresHeading.textContent = '历年国家线';
+			scoresModule.appendChild(scoresHeading);
+			var scoresList = document.createElement('ul');
+			major.scores.forEach(function (scoreObj) {
+				var scoreItem = document.createElement('li');
+				scoreItem.textContent = `${scoreObj.year}年: ${scoreObj.score}`;
+				scoresList.appendChild(scoreItem);
+			});
+			scoresModule.appendChild(scoresList);
 
-            // 创建和添加历年报录比标题及列表
-            var admissionRatioModule = document.createElement('div');
-            admissionRatioModule.className = 'module';
-            var admissionRatioHeading = document.createElement('h3');
-            admissionRatioHeading.textContent = '历年报录比';
-            admissionRatioModule.appendChild(admissionRatioHeading);
-            var admissionRatioList = document.createElement('ul');
-            major.admissionRatio.forEach(function (ratioObj) {
-                var ratioItem = document.createElement('li');
-                ratioItem.textContent = `${ratioObj.year}年: ${ratioObj.ratio}`;
-                admissionRatioList.appendChild(ratioItem);
-            });
-            admissionRatioModule.appendChild(admissionRatioList);
+			// 创建和添加历年报录比标题及列表
+			var admissionRatioModule = document.createElement('div');
+			admissionRatioModule.className = 'module';
+			var admissionRatioHeading = document.createElement('h3');
+			admissionRatioHeading.textContent = '历年报录比';
+			admissionRatioModule.appendChild(admissionRatioHeading);
+			var admissionRatioList = document.createElement('ul');
+			major.admissionRatio.forEach(function (ratioObj) {
+				var ratioItem = document.createElement('li');
+				ratioItem.textContent = `${ratioObj.year}年: ${ratioObj.ratio}`;
+				admissionRatioList.appendChild(ratioItem);
+			});
+			admissionRatioModule.appendChild(admissionRatioList);
 
-            // 添加所有模块到 contentArea
-            contentArea.appendChild(subjectsModule);
-            contentArea.appendChild(scoresModule);
-            contentArea.appendChild(admissionRatioModule);
-        }
+			// 添加所有模块到 contentArea
+			contentArea.appendChild(subjectsModule);
+			contentArea.appendChild(scoresModule);
+			contentArea.appendChild(admissionRatioModule);
+		}
 
-        // 填充导航菜单
-        function populateNavMenu(majors) {
-            var navList = document.getElementById('navList');
+		// 填充导航菜单
+		function populateNavMenu(majors) {
+			var navList = document.getElementById('navList');
 
-            majors.forEach(function (major) {
-                var listItem = document.createElement('li');
-                listItem.textContent = major.name;
-                listItem.addEventListener('click', function () {
-                    displayDetails(major);
-                });
-                navList.appendChild(listItem);
-            });
-        }
+			majors.forEach(function (major) {
+				var listItem = document.createElement('li');
+				listItem.textContent = major.name;
+				listItem.addEventListener('click', function () {
+					displayDetails(major);
+				});
+				navList.appendChild(listItem);
+			});
+		}
 
-        // 加载 JSON 数据并执行回调函数
-        loadJSON(function (response) {
-            var majors = JSON.parse(response);
-            populateNavMenu(majors);
-        });
+		// 加载 JSON 数据并执行回调函数
+		loadJSON(function (response) {
+			var majors = JSON.parse(response);
+			window.alert(response);
+			populateNavMenu(majors);
+		});
 
-    </script>
+	</script>
 
 </body>
 
