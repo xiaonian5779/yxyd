@@ -115,6 +115,7 @@
 	</style>
 </head>
 
+
 <body>
 	<div class="filter">
 		<div class="filter-item">
@@ -157,6 +158,7 @@
 				<option value="台湾">台湾</option>
 
 			</select>
+
 		</div>
 		<div class="filter-item">
 			<label for="character">院校特性:</label>
@@ -210,7 +212,7 @@
 		</a>
 	</footer>
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
+		document.addEventListener("DOMContentLoaded", function () {
 			// 获取筛选条件的选择框
 			const locationSelect = document.getElementById('location');
 			const characterSelect = document.getElementById('character');
@@ -250,9 +252,11 @@
 
 						const filteredUniversities = data.filter(university => {
 							return (locationValue === 'all' || university.location === locationValue) &&
-								(characterValue === 'all' || university.character === characterValue) &&
+								(characterValue === 'all' || university.character.includes(
+									characterValue)) &&
 								(typeValue === 'all' || university.type === typeValue) &&
-								(affiliationValue === 'all' || university.affiliation === affiliationValue);
+								(affiliationValue === 'all' || university.affiliation ===
+									affiliationValue);
 						});
 
 						displayResults(filteredUniversities);
@@ -272,12 +276,12 @@
 						const universityInfo = document.createElement('div');
 						universityInfo.classList.add('university-info');
 						universityInfo.innerHTML = `
-							<h3>${university.name}</h3>
-							<p><strong>所在地：</strong>${university.location}</p>
-							<p><strong>院校特性：</strong>${university.character}</p>
-							<p><strong>院校属性：</strong>${university.type}</p>
-							<p><strong>院校隶属：</strong>${university.affiliation}</p>
-						`;
+                            <h3>${university.name}</h3>
+                            <p><strong>所在地：</strong>${university.location}</p>
+                            <p><strong>院校特性：</strong>${university.character}</p>
+                            <p><strong>院校属性：</strong>${university.type}</p>
+                            <p><strong>院校隶属：</strong>${university.affiliation}</p>
+                        `;
 						resultsDiv.appendChild(universityInfo);
 					});
 				}
